@@ -14,9 +14,8 @@ public class SimpleIndex {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		LOGGER.debug("Hello from BasicIndex..start");
 		
-		
+			LOGGER.info("Hello from BasicIndex..start");
 	   //check if argument exist and its a directory
 		
 		//get list of files in a directory - no recursive feature
