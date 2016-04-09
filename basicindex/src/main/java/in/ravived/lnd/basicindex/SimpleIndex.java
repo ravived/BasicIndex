@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.util.List;
 
+import org.apache.commons.io.*;
 public class SimpleIndex {
 
 	public static void main(String[] args) {
@@ -25,11 +26,21 @@ public class SimpleIndex {
 	
 	
 	private boolean checkArguments(String[] args){
+		
 		return true;
 	}
 	
 
 	private List<File> getFileList(String dirPath){
+		File folder = new File(dirPath);
+		File[] listOfFiles = folder.listFiles();
+		for (File file : listOfFiles){
+		
+			FilenameUtils.getExtension(file.getName());
+			
+		
+		}
+		
 		return null;
 	}
 	

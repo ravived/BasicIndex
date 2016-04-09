@@ -1,0 +1,8 @@
+
+If you using the Linux command line at all, odds are you consider yourself a pro. Consequently, the Linux subsystem in Windows is hidden behind a "for pros only" side entrance that you can only get into if you're running Windows 10 from the Fast Ring developer builds numbered 14316 or greater, via the Windows Insider program. (Go to the Windows Insider website to learn more about that.)
+
+Note that once you're an Insider and on the Fast Ring, you may have to wait a few days to get build 14316 pushed to your system. As far as I've been able to tell, there's no quick way to get an .ISO of the latest build.
+
+Once you do have build 14316 running, go to Settings > Update & security > For developers, and choose Developer mode. Then type Windows features in the Search box and select "Turn Windows features on or off." From there, select "Windows Subsystem for Linux (Beta)."
+
+Once it's installed, launch a command prompt and type bash. You'll then be invited to download and install Bash from the Windows Store. (Don't bother searching for it in the Store interface; you won't find it there.) From then on, typing bash from within Windows's CLI will pop you into the Linux subsystem and launch a command line from which you can launch any number of other applications, such as vim.
