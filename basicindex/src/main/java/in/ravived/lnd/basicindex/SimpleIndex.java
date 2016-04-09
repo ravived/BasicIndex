@@ -4,11 +4,18 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.util.List;
 
-import org.apache.commons.io.*;
+import org.apache.commons.io.FilenameUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 public class SimpleIndex {
+
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(SimpleIndex.class);
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		LOGGER.debug("Hello from BasicIndex..start");
+		
 		
 	   //check if argument exist and its a directory
 		
