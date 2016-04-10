@@ -2,6 +2,7 @@ package in.ravived.lnd.basicindex;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.util.List;
 
 import org.apache.commons.io.FilenameUtils;
@@ -10,37 +11,30 @@ import org.slf4j.LoggerFactory;
 
 public class SimpleIndex {
 
-
 	private static final Logger Logger = LoggerFactory.getLogger(SimpleIndex.class);
 
-	 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
-		 
+
 		Logger.debug("BasicIndex..start");
 
 		SimpleIndex sindex = new SimpleIndex();
 
 		// check if argument exist and its a directory
-		if (sindex.checkArguments(args) == false) {
+		if (sindex.isValidArgument(args) == false) {
 			Logger.error("invalid arguments. usage .. SimpleIndex <path to index>");
 			return;
 		}
 
 		// get list of files in a directory - no recursive feature
-		sindex.getTxtFileList(args[0]);
+		File[] txtFileList = sindex.getTxtFileList(args[0]);
 
 		// for every file in directory ...
-
-		// check if file is of type txt
-
-		// open file and read every line
-
-		///
+		sindex.createIndexForEachFileInList(txtFileList);
 
 	}
 
-	private boolean checkArguments(String[] args) {
+	private boolean isValidArgument(String[] args) {
 		Logger.info("" + args.length);
 		if (args.length > 0) {
 			Logger.info("argument value: " + args[0]);
@@ -51,7 +45,9 @@ public class SimpleIndex {
 		return true;
 	}
 
-	private List<File> getTxtFileList(String dirPath) {
+	private File[] getTxtFileList(String dirPath) {
+		File currentDirectory = new File(new File(".").getAbsolutePath());
+		Logger.debug("Current Directory ->" + currentDirectory.getAbsolutePath());
 		File folder = new File(dirPath);
 		File[] listOfFiles = folder.listFiles();
 		for (File file : listOfFiles) {
@@ -60,27 +56,28 @@ public class SimpleIndex {
 
 		}
 
-		return null;
+		return listOfFiles;
 	}
 
-	private void createIndexForEachFileInList(List<File> fileList) {
+	private void createIndexForEachFileInList(File[] txtFileList) throws Exception {
 
 		// For every file
 		// Open File in BufferReader mode
+		for( File currentTxtFile : txtFileList){
+			BufferedReader bufReader = new BufferedReader(new FileReader(currentTxtFile));
+			String currentLine;
+			while ((currentLine = bufReader.readLine())!= null){
+				createOrUpdateIndexForGivenLine(currentLine, currentTxtFile.getAbsolutePath());
+			}
+			bufReader.close();
+		
+		}
 
 	}
 
-	private void createIndexForEachOpenFile(BufferedReader openFileBR) {
-
-		// for every line in the file
-		// get every word in the file
-
-		// createOrUpdateIndex()
-
-	}
-
-	private void createOrUpdateIndex(String word, String fileName) {
-
+	
+	private void createOrUpdateIndexForGivenLine(String currentLine, String fileName) {
+		Logger.debug(fileName + " - " + currentLine.length());
 	}
 
 }
