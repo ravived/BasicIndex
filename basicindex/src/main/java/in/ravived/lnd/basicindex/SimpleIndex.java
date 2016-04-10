@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.StringTokenizer;
 
 import org.apache.commons.io.FilenameUtils;
@@ -34,6 +35,10 @@ public class SimpleIndex {
 
 		// for every file in directory ...
 		sindex.createIndexForEachFileInList(txtFileList);
+		
+		//List the index datails
+		sindex.displaySimpleIndex();
+		
 
 	}
 
@@ -99,20 +104,35 @@ public class SimpleIndex {
 	private void createOrUpdateIndexForGivenToken(String fileName, String currentToken){
 		HashMap<String, Integer> tmpKeywordFileCountMap;
 		//check if token exist in indexMap. if so create or update the filename to token count
-		if (indexMap.containsKey(currentToken)){
+		
+		tmpKeywordFileCountMap = indexMap.get(currentToken);
+		
+		if (tmpKeywordFileCountMap != null){
 			
-			tmpKeywordFileCountMap = indexMap.get(currentToken);
-			if(!tmpKeywordFileCountMap.containsKey(fileName)){
+			Integer wordCountInFile = tmpKeywordFileCountMap.get(fileName);
+			
+			if(wordCountInFile == null){
 				tmpKeywordFileCountMap.put(fileName, 1);
-			}else{
-				int wordCount = tmpKeywordFileCountMap.get(fileName).intValue();
+			}else
+				
+			  wordCountInFile = (wordCountInFile.intValue()+1);
+			//check if value is actually updated in map??
 				
 			}
 			
 			
-		}
 		else{
+			tmpKeywordFileCountMap = new HashMap<String, Integer>();
+			tmpKeywordFileCountMap.put(fileName, 1);
+			indexMap.put(currentToken, tmpKeywordFileCountMap);
 			
+		}
+		
+	}
+	
+	public void displaySimpleIndex(){
+		for(Map.Entry<String, HashMap<String, Integer>> entry : indexMap.entrySet() ){
+			Logger.debug(entry.getKey());
 		}
 		
 	}
