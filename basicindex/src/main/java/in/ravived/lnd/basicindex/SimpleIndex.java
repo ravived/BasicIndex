@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
@@ -63,21 +64,30 @@ public class SimpleIndex {
 
 		// For every file
 		// Open File in BufferReader mode
+		int lineNumber=0;
 		for( File currentTxtFile : txtFileList){
 			BufferedReader bufReader = new BufferedReader(new FileReader(currentTxtFile));
 			String currentLine;
 			while ((currentLine = bufReader.readLine())!= null){
-				createOrUpdateIndexForGivenLine(currentLine, currentTxtFile.getAbsolutePath());
+				lineNumber++;
+				createOrUpdateIndexForGivenLine(lineNumber, currentLine, currentTxtFile.getAbsolutePath());
 			}
 			bufReader.close();
+			//reset line count;
+			lineNumber=0;
 		
 		}
 
 	}
 
 	
-	private void createOrUpdateIndexForGivenLine(String currentLine, String fileName) {
+	private void createOrUpdateIndexForGivenLine(int lineNumber, String currentLine, String fileName) {
+		Logger.debug(fileName + " - LineNumber - " + lineNumber + " - " + currentLine.length());
+		
+		//For every word in the Line create new entry or update the index
+		StringTokenizer lineTokens = new StringTokenizer(currentLine," ");
 		Logger.debug(fileName + " - " + currentLine.length());
+		
 	}
 
 }
