@@ -3,7 +3,7 @@ package in.ravived.lnd.basicindex;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.util.List;
+import java.util.HashMap;
 import java.util.StringTokenizer;
 
 import org.apache.commons.io.FilenameUtils;
@@ -11,6 +11,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class SimpleIndex {
+	HashMap<String, HashMap<String, Integer>> indexMap= new HashMap<String, HashMap <String, Integer>>();
+	HashMap<String, Integer> keywordFileCountMap = new HashMap<String, Integer>();
 
 	private static final Logger Logger = LoggerFactory.getLogger(SimpleIndex.class);
 
@@ -86,7 +88,32 @@ public class SimpleIndex {
 		
 		//For every word in the Line create new entry or update the index
 		StringTokenizer lineTokens = new StringTokenizer(currentLine," ");
-		Logger.debug(fileName + " - " + currentLine.length());
+		Logger.debug(fileName + " Tokens on  Line: "+ lineNumber + " - " + lineTokens.countTokens());
+		
+		while(lineTokens.hasMoreTokens()){
+			createOrUpdateIndexForGivenToken(fileName, lineTokens.nextToken());
+		}
+		
+	}
+	
+	private void createOrUpdateIndexForGivenToken(String fileName, String currentToken){
+		HashMap<String, Integer> tmpKeywordFileCountMap;
+		//check if token exist in indexMap. if so create or update the filename to token count
+		if (indexMap.containsKey(currentToken)){
+			
+			tmpKeywordFileCountMap = indexMap.get(currentToken);
+			if(!tmpKeywordFileCountMap.containsKey(fileName)){
+				tmpKeywordFileCountMap.put(fileName, 1);
+			}else{
+				int wordCount = tmpKeywordFileCountMap.get(fileName).intValue();
+				
+			}
+			
+			
+		}
+		else{
+			
+		}
 		
 	}
 
