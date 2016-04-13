@@ -115,7 +115,7 @@ public class SimpleIndex {
 				tmpKeywordFileCountMap.put(fileName, 1);
 			}else
 				
-			  wordCountInFile = (wordCountInFile.intValue()+1);
+			  wordCountInFile = wordCountInFile.intValue()+1;
 			//check if value is actually updated in map??
 				
 			}
@@ -132,7 +132,8 @@ public class SimpleIndex {
 	
 	public void displaySimpleIndex(){
 		for(Map.Entry<String, HashMap<String, Integer>> entry : indexMap.entrySet() ){
-			Logger.debug(entry.getKey());
+			Logger.debug(entry.getKey() + " available in - "+ entry.getValue().toString());
+			
 		}
 		
 	}
